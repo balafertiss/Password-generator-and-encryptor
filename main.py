@@ -10,6 +10,7 @@ medium ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 strong ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()0123456789"
 
 diff = "a"
+key = 3
 
 def Generate():
     length = int(combo.get())
@@ -29,12 +30,38 @@ def Generate():
 def Copy():
     txt = Passent.get()
     pyperclip.copy(txt)
+
 def Copy2():
     txt = PassEncent.get()
     pyperclip.copy(txt)
+
 def Encrypt():
-    password = int(Passent.get())
-    for i in range(0,password,1):
+    global key
+    password = Passent.get()
+    Encpassword = ""
+    for i in password:
+
+        a = ord(i)
+        b = a + key
+        c = chr(b)
+        Encpassword = Encpassword + c
+
+    PassEncent.delete(0,END)
+    PassEncent.insert(0,Encpassword)
+
+def Decrypt():
+    global key
+    password = Passent.get()
+    Decryptpassword = ""
+    for i in password:
+
+        a = ord(i)
+        b = a - key
+        c = chr(b)
+        Decryptpassword = Decryptpassword + c
+
+    PassEncent.delete(0,END)
+    PassEncent.insert(0,Decryptpassword)
 
 
 window = ThemedTk(theme = "yaru")
@@ -76,7 +103,7 @@ Copybtn.grid(column = 4,row = 0)
 Copybtn2 = ttk.Button(window,text = "Copy",command = Copy2)
 Copybtn2.grid(column = 4,row = 2)
 
-Decryptbtn = ttk.Button(window,text = "Decrypt",)
+Decryptbtn = ttk.Button(window,text = "Decrypt",command = Decrypt)
 Decryptbtn.grid(column = 5,row=2)
 
 
