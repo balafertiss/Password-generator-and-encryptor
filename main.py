@@ -9,6 +9,8 @@ low = "abcdefghijklmnopqrstuvwxyz"
 medium ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 strong ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()0123456789"
 
+strongLen = len(strong)
+
 diff = "a"
 key = 3
 
@@ -40,28 +42,29 @@ def Encrypt():
     password = Passent.get()
     Encpassword = ""
     for i in password:
-
-        a = ord(i)
+        a = strong.find(i)
         b = a + key
-        c = chr(b)
-        Encpassword = Encpassword + c
+        if b >= strongLen:
+            b -= strongLen
+        Encpassword += strong[b]
+
 
     PassEncent.delete(0,END)
     PassEncent.insert(0,Encpassword)
 
 def Decrypt():
     global key
-    password = Passent.get()
-    Decryptpassword = ""
-    for i in password:
-
-        a = ord(i)
-        b = a - key
-        c = chr(b)
-        Decryptpassword = Decryptpassword + c
+    Epassword = Passent.get()
+    Depassword = ""
+    for i in Epassword:
+        A = strong.find(i)
+        B = A
+        if B < 0:
+            B += strongLen
+        Depassword += strong[B]
 
     PassEncent.delete(0,END)
-    PassEncent.insert(0,Decryptpassword)
+    PassEncent.insert(0,Depassword)
 
 
 window = ThemedTk(theme = "yaru")
