@@ -39,7 +39,7 @@ def Copy2():
 
 def Encrypt():
     global key
-    password = Passent.get()
+    password = PassEncent.get()
     Encpassword = ""
     for i in password:
         a = strong.find(i)
@@ -54,11 +54,11 @@ def Encrypt():
 
 def Decrypt():
     global key
-    Epassword = Passent.get()
+    Epassword = PassEncent.get()
     Depassword = ""
     for i in Epassword:
         A = strong.find(i)
-        B = A
+        B = A - key
         if B < 0:
             B += strongLen
         Depassword += strong[B]
