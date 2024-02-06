@@ -123,3 +123,4 @@ StrRad.grid(column=5, row=1)
 
 
 window.mainloop()
+v
